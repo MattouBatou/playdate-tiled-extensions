@@ -1,0 +1,23 @@
+{
+  "name": "playdate-tiled-extensions",
+  "version": "1.0.0",
+  "description": "A collection of extensions for Tiled for use with Playdate game code (CAPI)",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattouBatou/playdate-tiled-extensions.git"
+  },
+  "author": "Matthew Lewis (MattouBatou)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MattouBatou/playdate-tiled-extensions/issues"
+  },
+  "homepage": "https://github.com/MattouBatou/playdate-tiled-extensions#readme",
+  "devDependencies": {
+    "@mapeditor/tiled-api": "^1.9.2",
+    "typescript": "^4.9.5"
+  }
+}
