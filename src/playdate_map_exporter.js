@@ -1,3 +1,4 @@
+
 /// <reference types="@mapeditor/tiled-api" />
 
 /*
@@ -12,7 +13,7 @@
 // Matches string that contains a "/" with any other non "/" characters before and after a "/"
 // Gives you the contents of the string from the 2nd to last slash to the end of string.
 // For a file path, it gives you the file and the directory it is in.
-const getRelativePath = path => path.match(/[^\/]+\/[^\/]+$/);
+const getRelativePath = path => path.match(/[^\/]+\/[^\/]+$/)[0];
 
 tiled.registerMapFormat("playdate", {
 	name: "playdate map format",
@@ -27,10 +28,10 @@ tiled.registerMapFormat("playdate", {
 			height: 				map.height,
 			tileWidth:  			map.tileWidth,
 			tileHeight: 			map.tileHeight,
-			tilesets:				[],
 			tilesetsLength:			map.tilesets.length,
+			tilesets:				[],
+			tilemapLayersLength:	map.layers.filter(layer => !layer.isTileLayer).length,
 			tilemapLayers:			[],
-			tilemapLayersLength:	map.layers.filter(layer => !layer.isTileLayer).length
 		};
 
 		// write tilesets data
@@ -76,8 +77,8 @@ tiled.registerMapFormat("playdate", {
 				name: 				layer.name,
 				width: 				layer.width,
 				height:				layer.height,
+				mapLength:			tilemap.length,
 				map: 				JSON.parse(JSON.stringify(tilemap)),
-				mapLength:			tilemap.length
 			};
 
 			exportJson.tilemapLayers.push(tileLayer);
