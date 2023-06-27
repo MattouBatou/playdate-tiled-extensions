@@ -16,6 +16,8 @@ const FIRST_PLAYER_SPAWN_POINT_NAME 	= "player_sp_0";
 const GAME_BORDER_LAYER_NAME 			= "border";
 const COLLECTABLE_LAYER_NAME			= "collectables";
 const COLLECTABLE_CLASS_NAME			= "collectable";
+const ENEMY_LAYER_NAME					= "enemies";
+const ENEMY_CLASS_NAME					= "enemy";
 
 
 // 		default values
@@ -52,6 +54,8 @@ tiled.registerMapFormat("playdate", {
 			gameBorder:				DEFAULT_GAME_BORDER_Y,
 			collectablesLength:		getObjectLayer(map.layers, COLLECTABLE_LAYER_NAME).objects.length,
 			collectables:			[],
+			enemiesLength:			getObjectLayer(map.layers, ENEMY_LAYER_NAME).objects.length,
+			enemies:				[],
 			tilesetsLength:			map.tilesets.length,
 			tilesets:				[],
 			tilemapLayersLength:	map.layers.filter(layer => layer.isTileLayer).length,
@@ -92,6 +96,24 @@ tiled.registerMapFormat("playdate", {
 						x: Math.round(collectableObject.pos.x),
 						y: Math.round(collectableObject.pos.y),
 						name: collectableObject.name
+					}
+				);
+			}
+		}
+
+		// Get enemy object positions and names 
+		const enemyObjectsLayer = getObjectLayer(map.layers, ENEMY_LAYER_NAME);
+		if(enemyObjectsLayer) 
+		{
+			for(let enemyIndex = 0; enemyIndex < enemyObjectsLayer.objects.length; enemyIndex++)
+			{
+				let enemyObject = enemyObjectsLayer.objects[enemyIndex];
+
+				exportJson.enemies.push(
+					{
+						x: Math.round(enemyObject.pos.x),
+						y: Math.round(enemyObject.pos.y),
+						name: enemyObject.name
 					}
 				);
 			}
