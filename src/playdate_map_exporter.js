@@ -13,12 +13,14 @@
 //		names
 const PLAYER_SPAWN_POINT_LAYER_NAME 	= "player_spawn_points";
 const FIRST_PLAYER_SPAWN_POINT_NAME 	= "player_sp_0";
-const WALKABLE_AREA_LAYER_NAME 			= "walkable";
-const WALKABLE_AREA_NAME				= "walkable_area";
+const GAME_BORDER_LAYER_NAME 			= "border";
+const COLLECTABLE_LAYER_NAME			= "collectables";
+const COLLECTABLE_CLASS_NAME			= "collectable";
+
 
 // 		default values
 const DEFAULT_PLAYER_SPAWN_START_POINT 	= { x: 200, y: 120};
-const DEFAULT_WALKABLE_AREA_DATA		= { x: 0, y: 0, area: [] };
+const DEFAULT_GAME_BORDER_Y				= 120;
 
 // Matches string that contains a "/" with any other non "/" characters before and after a "/"
 // Gives you the contents of the string from the 2nd to last slash to the end of string.
@@ -47,7 +49,9 @@ tiled.registerMapFormat("playdate", {
 			tileWidth:  			map.tileWidth,
 			tileHeight: 			map.tileHeight,
 			playerSpawnStartPos:	DEFAULT_PLAYER_SPAWN_START_POINT,
-			walkableArea:			DEFAULT_WALKABLE_AREA_DATA,
+			gameBorder:				DEFAULT_GAME_BORDER_Y,
+			collectablesLength:		getObjectLayer(map.layers, COLLECTABLE_LAYER_NAME).objects.length,
+			collectables:			[],
 			tilesetsLength:			map.tilesets.length,
 			tilesets:				[],
 			tilemapLayersLength:	map.layers.filter(layer => layer.isTileLayer).length,
@@ -56,24 +60,43 @@ tiled.registerMapFormat("playdate", {
 
 		// Set spawn position from map data if it exists
 		const playerSpawnPointsObjectLayer = getObjectLayer(map.layers, PLAYER_SPAWN_POINT_LAYER_NAME);
-		if(playerSpawnPointsObjectLayer) {
+		if(playerSpawnPointsObjectLayer) 
+		{
 			const firstPlayerSpawnObject = getObject(playerSpawnPointsObjectLayer.objects, FIRST_PLAYER_SPAWN_POINT_NAME);
 			exportJson.playerSpawnStartPos = firstPlayerSpawnObject ? firstPlayerSpawnObject.pos : exportJson.playerSpawnStartPos;
 		}
 
-		// Get walkable area polygon object data if it exists
-		const walkableAreaObjectLayer = getObjectLayer(map.layers, WALKABLE_AREA_LAYER_NAME);
-		if(walkableAreaObjectLayer) {
-			const walkableAreaObject = getObject(walkableAreaObjectLayer.objects, WALKABLE_AREA_NAME);
-			if(walkableAreaObject) {
-				exportJson.walkableArea = {
-					x: walkableAreaObject.pos.x,
-					y: walkableAreaObject.pos.y,
-					areaLength: walkableAreaObject.polygon.length,
-					area: walkableAreaObject.polygon
-				};
+		// Get game border polygon object data if it exists
+		const gameBorderObjectLayer = getObjectLayer(map.layers, GAME_BORDER_LAYER_NAME);
+		if(gameBorderObjectLayer) 
+		{
+			const gameBorderObject = gameBorderObjectLayer.objects[0];
+			if(gameBorderObject) 
+			{
+				exportJson.gameBorder = gameBorderObject.pos.y;
+			} 
+			else
+				throw new Error(`No walkable area is defined for map: ${map.className}`);
+		}
+
+		// Get collectable object positions and names 
+		const collectableObjectsLayer = getObjectLayer(map.layers, COLLECTABLE_LAYER_NAME);
+		if(collectableObjectsLayer) 
+		{
+			for(let collectableIndex = 0; collectableIndex < collectableObjectsLayer.objects.length; collectableIndex++)
+			{
+				let collectableObject = collectableObjectsLayer.objects[collectableIndex];
+
+				exportJson.collectables.push(
+					{
+						x: Math.round(collectableObject.pos.x),
+						y: Math.round(collectableObject.pos.y),
+						name: collectableObject.name
+					}
+				);
 			}
 		}
+
 
 		// write tilesets data
 		let lastgid = 0;
@@ -100,15 +123,19 @@ tiled.registerMapFormat("playdate", {
 
 			let tilemap = [];
 
-			for(let y = 0; y < layer.height; y++) {
-				for(let x = 0; x < layer.width; x++) {
+			for(let y = 0; y < layer.height; y++) 
+			{
+				for(let x = 0; x < layer.width; x++)
+				{
 					let tile = layer.tileAt(x,y);
 
 					// find parsed tileset tile belongs to
-					if(tile) {
+					if(tile) 
+					{
 						let parsedTileset = exportJson.tilesets.find((tileset) => tile.tileset.name === tileset.name);
 						tilemap.push(parsedTileset.firstgid + tile.id);
-					} else {
+					} else 
+					{
 						tilemap.push(0);
 					}
 				}
