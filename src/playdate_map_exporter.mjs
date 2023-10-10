@@ -32,23 +32,24 @@ tiled.registerMapFormat("playdate", {
 
 		// Default data
 		let exportJson = {
-			name: 					map.className,
-			width: 					map.width,
-			height: 				map.height,
-			tileWidth:  			map.tileWidth,
-			tileHeight: 			map.tileHeight,
-			playerSpawnStartPos:	playerSpawnStartPos,
-			gameBorder:				gameBorder,
-			collectablesLength:		collectables.length,
-			collectables:			collectables,
-			screenLocksLength:		screenLocks.screenLocks.length,
-			screenLocks:			screenLocks.screenLocks,
-			enemiesLength:			screenLocks.tempEnemyData.enemiesLength,
-			enemies:				screenLocks.tempEnemyData.enemies,
-			tilesetsLength:			map.tilesets.length,
-			tilesets:				tilesets,
-			tilemapLayersLength:	map.layers.filter(layer => layer.isTileLayer).length,
-			tilemapLayers:			tilemapLayers
+			name: 							map.className,
+			width: 							map.width,
+			height: 						map.height,
+			tileWidth:  					map.tileWidth,
+			tileHeight: 					map.tileHeight,
+			playerSpawnStartPos:			playerSpawnStartPos,
+			gameBorder:						gameBorder,
+			collectablesLength:				collectables.length,
+			collectables:					collectables,
+			screenLocksLength:				screenLocks.length,
+			screenLocks:					screenLocks,
+			// NOTE(matt): This is going to be data for all the enemies that should be spawned outside of screenLocks.
+			// freelySpawnedEnemiesLength:		freelySpawnedEnemyData.enemiesLength,
+			// freelySpawnedEnemies:			freelySpawnedEnemyData.enemies,
+			tilesetsLength:					map.tilesets.length,
+			tilesets:						tilesets,
+			tilemapLayersLength:			map.layers.filter(layer => layer.isTileLayer).length,
+			tilemapLayers:					tilemapLayers
 		};
 
 		file.write(JSON.stringify(exportJson, null, 2));
