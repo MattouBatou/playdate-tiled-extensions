@@ -87,6 +87,8 @@ export const getEnemyData = (enemyObjectsLayer) =>
         {
             let enemyObject = enemyObjectsLayer.objectAt((enemies.length - 1) - enemyIndex);
 
+            // engageOrder is not used in game. We use it to sort the array of enemies by the engage order
+            // so that game logic can just spawn entities in array order.
             enemies[enemyIndex] = {
                 engageOrder: enemyObject.property("engageOrder"),
                 name: enemyObject.name,
