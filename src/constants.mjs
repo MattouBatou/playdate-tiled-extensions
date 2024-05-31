@@ -5,6 +5,8 @@ export const FIRST_PLAYER_SPAWN_POINT_NAME 	    = "player_sp_0";
 
 export const GAME_BORDER_LAYER_NAME 			= "border";
 
+export const BG_LAYERS_NAME 			        = "bgLayers";
+
 export const COLLECTABLE_LAYER_NAME			    = "collectables";
 export const COLLECTABLE_CLASS_NAME			    = "collectable";
 
@@ -15,6 +17,8 @@ export const SCREEN_OBJECT_CLASS_NAME			= "screenRect";
 
 export const WAVE_GROUP_NAME                    = "waves";
 export const WAVE_CLASS_NAME                    = "wave";
+
+export const FREE_SPAWN_CLASS_NAME              = "freeSpawns";
 
 export const ENEMY_LAYER_CLASS_NAME				= "enemy_wave";
 

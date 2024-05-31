@@ -1,11 +1,14 @@
 /// <reference types="@mapeditor/tiled-api" />
 
+import { getImageLayer, getRelativePath } from "./utils.mjs";
+
 import { getPlayerSpawnPoint } from "./features/playerSpawnPoint.mjs";
 import { getGameBorder } from "./features/gameBorder.mjs";
 import { getCollectables } from "./features/collectables.mjs";
 import { getScreenLocks } from "./features/screenLock.mjs";
 import { getTilesets } from "./features/tilesets.mjs";
 import { getTilemapLayers } from "./features/tilemapLayers.mjs";
+import { getBgLayers } from "./features/bgLayers.mjs";
 
 /*
  * playdate-map-exporter.js
@@ -25,6 +28,7 @@ tiled.registerMapFormat("playdate", {
 		
 		const playerSpawnStartPos = getPlayerSpawnPoint(map);
 		const gameBorder = getGameBorder(map);
+		const bgLayers	 = getBgLayers(map);
 		const collectables = getCollectables(map);
 		const screenLocks = getScreenLocks(map);
 		const tilesets = getTilesets(map);
@@ -37,15 +41,17 @@ tiled.registerMapFormat("playdate", {
 			height: 						map.height,
 			tileWidth:  					map.tileWidth,
 			tileHeight: 					map.tileHeight,
+			bgLayersLength:					bgLayers.length,
+			bgLayers,
+			skyPath:						`tilemaps/${getRelativePath(getImageLayer(map.layers, 'sky').imageSource.toString())}`,
+			enemyTypesInLevelLength:		screenLocks.enemyTypesInLevel.length,
+			enemyTypesInLevel:				screenLocks.enemyTypesInLevel,
 			playerSpawnStartPos:			playerSpawnStartPos,
 			gameBorder:						gameBorder,
 			collectablesLength:				collectables.length,
 			collectables:					collectables,
-			screenLocksLength:				screenLocks.length,
-			screenLocks:					screenLocks,
-			// NOTE(matt): This is going to be data for all the enemies that should be spawned outside of screenLocks.
-			// freelySpawnedEnemiesLength:		freelySpawnedEnemyData.enemiesLength,
-			// freelySpawnedEnemies:			freelySpawnedEnemyData.enemies,
+			screenLocksLength:				screenLocks.screenLocks.length,
+			screenLocks:					screenLocks.screenLocks,
 			tilesetsLength:					map.tilesets.length,
 			tilesets:						tilesets,
 			tilemapLayersLength:			map.layers.filter(layer => layer.isTileLayer).length,
