@@ -25,11 +25,11 @@ export const setUniqueArrayValue = (newValue, array) => {
 
     const doesValueExistInArray = array.find(value => newValue === value);
 
-    if(!doesValueExistInArray){
-        array.push(newValue);
+    if(doesValueExistInArray || doesValueExistInArray === null){
+        return;
     }
 
-    return;
+    array.push(newValue);
 };
 
 export const int32ToUint32 = (x) => x >>> 0;

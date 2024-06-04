@@ -1,4 +1,11 @@
-import { getGroupLayer, getObjectLayer, getObjectLayerByClass, getObjectByClass, getGroupLayerByClass, setUniqueArrayValue } from "../utils.mjs";
+import { 
+    getGroupLayer, 
+    getObjectLayer, 
+    getObjectLayerByClass, 
+    getObjectByClass, 
+    getGroupLayerByClass, 
+    setUniqueArrayValue 
+} from "../utils.mjs";
 import { 
     SCREENLOCKS_GROUP_NAME,
     SCREEN_LAYER_NAME,

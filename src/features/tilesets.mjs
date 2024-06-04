@@ -3,8 +3,10 @@ import { getBitmapTablePath, getRelativePath } from "../utils.mjs";
 export const getTilesets = (map) => {
     // write tilesets data
     let lastgid = 0;
-    let tilesets = new Array(map.tilesets.length);
-    map.tilesets.forEach((tileset, tilesetIndex) => {
+    const standardTilesets = map.tilesets.filter(tileset => tileset.image);
+
+    let tilesets = new Array(standardTilesets.length);
+    standardTilesets.forEach((tileset, tilesetIndex) => {
         let tSet = {
             tablePath:			getBitmapTablePath(getRelativePath(tileset.image)),
             name: 				tileset.name,
