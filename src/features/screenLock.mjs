@@ -133,7 +133,9 @@ export const getEnemyData = (enemyObjectsLayer, enemyTypesInLevel) =>
                 class: enemyObject.className,
                 enemyType,
                 x: Math.round(enemyObject.pos.x),
-                y: Math.round(enemyObject.pos.y)
+                y: Math.round(enemyObject.pos.y),
+                width: enemyObject.width,
+                height: enemyObject.height,
             };
         }
 
