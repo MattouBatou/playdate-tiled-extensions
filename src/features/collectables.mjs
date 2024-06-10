@@ -1,4 +1,4 @@
-import { getObjectLayer,  setUniqueArrayValue } from "../utils.mjs";
+import { getObjectLayer,  setUniqueArrayValue, getObjectPropValue } from "../utils.mjs";
 import { COLLECTABLE_LAYER_NAME } from "../constants.mjs";
 
 
@@ -13,9 +13,10 @@ export const getCollectables = (map) => {
         for(let collectableIndex = 0; collectableIndex < entities.length; collectableIndex++)
         {
             let collectableObject = collectableObjectsLayer.objects[collectableIndex];
-            setUniqueArrayValue(collectableObject.name, collectableTypesInLevel);
+            setUniqueArrayValue(collectableObject.resolvedProperty('type').value, collectableTypesInLevel);
             entities[collectableIndex] = {
-                name: collectableObject.name,
+                name: getObjectPropValue(collectableObject, 'type'),
+                typeId: collectableObject.resolvedProperty('type').value,
                 class: collectableObject.resolvedProperty('className'),
                 x: Math.round(collectableObject.pos.x),
                 y: Math.round(collectableObject.pos.y),

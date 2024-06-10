@@ -4,7 +4,8 @@ import {
     getObjectLayerByClass, 
     getObjectByClass, 
     getGroupLayerByClass, 
-    setUniqueArrayValue 
+    setUniqueArrayValue,
+    getObjectPropValue
 } from "../utils.mjs";
 import { 
     SCREENLOCKS_GROUP_NAME,
@@ -121,17 +122,15 @@ export const getEnemyData = (enemyObjectsLayer, enemyTypesInLevel) =>
         for(let enemyIndex = 0; enemyIndex < enemies.length; enemyIndex++)
         {
             let enemyObject = enemyObjectsLayer.objectAt((enemies.length - 1) - enemyIndex);
-            const enemyType = enemyObject.property("enemyType");
-            setUniqueArrayValue(enemyType, enemyTypesInLevel);
-
+            setUniqueArrayValue(enemyObject.resolvedProperty('type').value, enemyTypesInLevel);
 
             // engageOrder is not used in game. We use it to sort the array of enemies by the engage order
             // so that game logic can just spawn entities in array order.
             enemies[enemyIndex] = {
                 engageOrder: enemyObject.property("engageOrder"),
-                name: enemyObject.name,
-                class: enemyObject.className,
-                enemyType,
+                name: getObjectPropValue(enemyObject, 'type'),
+                class: enemyObject.resolvedProperty('className'),
+                typeId: enemyObject.resolvedProperty('type').value,
                 x: Math.round(enemyObject.pos.x),
                 y: Math.round(enemyObject.pos.y),
                 width: enemyObject.width,
