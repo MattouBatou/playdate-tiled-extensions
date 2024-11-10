@@ -5,6 +5,7 @@ import { getImageLayer, getRelativePath } from "./utils.mjs";
 import { getPlayerSpawnPoint } from "./features/playerSpawnPoint.mjs";
 import { getGameBorder } from "./features/gameBorder.mjs";
 import { getCollectables } from "./features/collectables.mjs";
+import { getObstacles } from "./features/obstacles.mjs";
 import { getScreenLocks } from "./features/screenLock.mjs";
 import { getTilesets } from "./features/tilesets.mjs";
 import { getTilemapLayers } from "./features/tilemapLayers.mjs";
@@ -31,6 +32,7 @@ tiled.registerMapFormat("playdate", {
 		const gameBorder = getGameBorder(map);
 		const bgLayers	 = getBgLayers(map);
 		const collectables = getCollectables(map);
+		const obstacles	= getObstacles(map);
 		const screenLocks = getScreenLocks(map);
 		const tilesets = getTilesets(map);
 		const tilemapLayers = getTilemapLayers(map, tilesets);
@@ -54,6 +56,10 @@ tiled.registerMapFormat("playdate", {
 			collectables:					collectables.entities,
 			collectableTypesInLevelLength:  collectables.collectableTypesInLevel.length,
 			collectableTypesInLevel:		collectables.collectableTypesInLevel,
+			obstaclesLength:				obstacles.entities.length,
+			obstacles:						obstacles.entities,
+			obstacleTypesInLevelLength:		obstacles.obstacleTypesInLevel.length,
+			obstacleTypesInLevel:			obstacles.obstacleTypesInLevel,
 			screenLocksLength:				screenLocks.screenLocks.length,
 			screenLocks:					screenLocks.screenLocks,
 			tilesetsLength:					tilesets.length,

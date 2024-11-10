@@ -9,6 +9,8 @@ export const BG_LAYERS_NAME 			        = "bgLayers";
 
 export const COLLECTABLE_LAYER_NAME			    = "collectables";
 export const COLLECTABLE_CLASS_NAME			    = "collectable";
+export const OBSTACLE_LAYER_NAME			    = "obstacles";
+export const OBSTACLE_CLASS_NAME			    = "obstacle";
 
 export const SCREENLOCKS_GROUP_NAME			    = "screenLocks";
 export const SCREEN_GROUP_CLASS				    = "screenGroup";
