@@ -29,3 +29,7 @@ export const MAP_DETAILS_LAYER_NAME             = "mapDetails";
 // 		default values
 export const DEFAULT_PLAYER_SPAWN_START_POINT 	= { x: 200, y: 120};
 export const DEFAULT_GAME_BORDER_Y				= 120;
+
+
+// showObstaclesItemPreviews
+export const OBSTACLE_ITEM_PREVIEWS_LAYER_NAME = "obstacleItemPreviews"

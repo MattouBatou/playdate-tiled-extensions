@@ -19,7 +19,7 @@ export const getObstacles = (map) => {
                 name: getObjectPropValue(obstacleObject, 'type'),
                 typeId: obstacleObject.resolvedProperty('type').value,
                 class: obstacleObject.resolvedProperty('className'),
-                shouldSpawnItem: obstacleObject.resolvedProperty('shouldSpawnItem'),
+                shouldSpawnItem: obstacleObject.resolvedProperty('shouldSpawnItem') === true ? 1 : 0,
                 item: obstacleObject.resolvedProperty('item').value,
                 x: Math.round(obstacleObject.pos.x),
                 y: Math.round(obstacleObject.pos.y),
